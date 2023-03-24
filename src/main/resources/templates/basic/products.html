@@ -1,7 +1,9 @@
 <!DOCTYPE HTML>
+<!--타임리프 사용 선언-->
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="utf-8">
+<!--  th 달린애를 우선적용-->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"
         th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css}" rel = "stylesheet">
 </head>
@@ -30,6 +32,7 @@
       </tr>
       </thead>
       <tbody>
+<!--      each : 반복분 -->
       <tr th:each="product : ${products}">
         <td><a href="product.html" th:href="@{/basic/products/{productId}
 (productId=${product.id})}" th:text="${product.id}">회원id</a></td>
