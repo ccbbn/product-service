@@ -7,10 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.PostConstruct;
 import java.text.ParsePosition;
 import java.util.List;
+import java.util.Scanner;
 
 
 // 동적 HTML을 만드는 컨트롤러
@@ -69,18 +71,45 @@ public class BasicProductController {
 //    }
 
 
+//    @PostMapping ("add") //객체를 만듬 username=나&age=24234의 정보로 .
+//    public String addProductV3(@ModelAttribute Product product /*Model model 안만들어도 됨*/) {
+//        productRepository.save(product);  // 키는 스프링이 타입명에서 자동으로 바꿈. 키 : product
+//        /*model.addAttribute("product", product); 굳이 필요 없음 */
+//        return "/basic/product";
+//}
 
     @PostMapping ("add") //객체를 만듬 username=나&age=24234의 정보로 .
-    public String addProductV3(@ModelAttribute Product product /*Model model 안만들어도 됨*/) {
-        productRepository.save(product);  // 키는 스프링이 타입명에서 자동으로 바꿈. 키 : product
-        /*model.addAttribute("product", product); 굳이 필요 없음 */
-        return "/basic/product";
-}
+    public String addProductV3(@ModelAttribute Product product, RedirectAttributes redirectAttributes) {
+        product = productRepository.save(product);
+        redirectAttributes.addAttribute("productId",product.getId());
+        redirectAttributes.addAttribute("status", true);
+        return "redirect:/basic/product/{productId}";
+    }
 
 
 
 
 
+//
+// 수정할 때는 put사용
+    @GetMapping("/{productId}/edit")
+    public String edit(@PathVariable Long productId, Model model){
+        Product product = productRepository.findById(productId);
+        model.addAttribute("product", product);
+        return "/basic/editForm";
+    }
+
+    @PostMapping("/{productId}/edit")
+    public String edit1(@PathVariable Long productId, Product product) {
+        productRepository.update(productId, product);
+        return "redirect:/basic/products";
+    }
+
+    @GetMapping("/{productId}/delete")
+    public String d1(@PathVariable Long productId){
+       productRepository.delete(productId);
+        return "redirect:/basic/products";
+    }
 
     @PostConstruct // 생성이후에 실행
     public void initProducts() {

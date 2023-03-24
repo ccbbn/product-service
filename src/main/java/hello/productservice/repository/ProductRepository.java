@@ -11,7 +11,7 @@ import java.util.Map;
 
 @Repository
 public class ProductRepository {
-    private static final Map<Long, Product> store = new HashMap<>();
+    public static final Map<Long, Product> store = new HashMap<>();
 
     private static long sequence = 0L;
 
@@ -36,4 +36,10 @@ public class ProductRepository {
         product.setStock(updataProduct.getStock());
 
     }
+
+    public void delete(Long id){
+        store.remove(id);
+    }
+
+
 }
