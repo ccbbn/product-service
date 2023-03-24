@@ -71,20 +71,20 @@ public class BasicProductController {
 //    }
 
 
-//    @PostMapping ("add") //객체를 만듬 username=나&age=24234의 정보로 .
-//    public String addProductV3(@ModelAttribute Product product /*Model model 안만들어도 됨*/) {
-//        productRepository.save(product);  // 키는 스프링이 타입명에서 자동으로 바꿈. 키 : product
-//        /*model.addAttribute("product", product); 굳이 필요 없음 */
-//        return "/basic/product";
-//}
-
     @PostMapping ("add") //객체를 만듬 username=나&age=24234의 정보로 .
-    public String addProductV3(@ModelAttribute Product product, RedirectAttributes redirectAttributes) {
-        product = productRepository.save(product);
-        redirectAttributes.addAttribute("productId",product.getId());
-        redirectAttributes.addAttribute("status", true);
-        return "redirect:/basic/product/{productId}";
-    }
+    public String addProductV3(@ModelAttribute Product product /*Model model 안만들어도 됨*/) {
+        productRepository.save(product);  // 키는 스프링이 타입명에서 자동으로 바꿈. 키 : product
+        /*model.addAttribute("product", product); 굳이 필요 없음 */
+        return "/basic/product";
+}
+
+//    @PostMapping ("add") //객체를 만듬 username=나&age=24234의 정보로 .
+//    public String addProductV3(@ModelAttribute Product product, RedirectAttributes redirectAttributes) {
+//        product = productRepository.save(product);
+//        redirectAttributes.addAttribute("productId",product.getId());
+//        redirectAttributes.addAttribute("status", true);
+//        return "redirect:/basic/product/{productId}";
+//    }
 
 
 
