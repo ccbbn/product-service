@@ -38,7 +38,7 @@ public class BasicProductController {
         List<Product> products = productRepository.findAll();
         ModelAndView mav = new ModelAndView("/basic/products")
                 .addObject("products",products);
-        return mav;
+        return mav;  //템블릿에 모델 뱉음
     }
 
 
@@ -50,7 +50,7 @@ public class BasicProductController {
 
     }
 
-    @GetMapping("/add")
+    @GetMapping("add") //주소의 입력으로 리턴 파일로 감// 화면틀이 완성됨
     public String addForm(){
         return "/basic/addForm";
     }
@@ -71,7 +71,7 @@ public class BasicProductController {
 //    }
 
 
-    @PostMapping ("add") //객체를 만듬 username=나&age=24234의 정보로 .
+    @PostMapping ("add") //객체를 만듬, 저장함
     public String addProductV3(@ModelAttribute Product product /*Model model 안만들어도 됨*/) {
         productRepository.save(product);  // 키는 스프링이 타입명에서 자동으로 바꿈. 키 : product
         /*model.addAttribute("product", product); 굳이 필요 없음 */
@@ -87,29 +87,40 @@ public class BasicProductController {
 //    }
 
 
-
-
-
-//
 // 수정할 때는 put사용
-    @GetMapping("/{productId}/edit")
+    @GetMapping("/{productId}/edit") //product 에서 요청
     public String edit(@PathVariable Long productId, Model model){
         Product product = productRepository.findById(productId);
         model.addAttribute("product", product);
         return "/basic/editForm";
     }
 
-    @PostMapping("/{productId}/edit")
-    public String edit1(@PathVariable Long productId, Product product) {
-        productRepository.update(productId, product);
+//    @PostMapping("/{productId}/edit")
+//    public String edit1(@PathVariable Long productId, Product product) {
+//        productRepository.update(productId, product);
+//        return "redirect:/basic/products";
+//    }
+
+    @PostMapping("/{productId}/edit") //@ 모델 어트리뷰트 모든 정보가 담김
+    public String edit2(@ModelAttribute Product product) {
+        productRepository.update(product.getId(), product);
         return "redirect:/basic/products";
     }
+
 
     @GetMapping("/{productId}/delete")
     public String d1(@PathVariable Long productId){
        productRepository.delete(productId);
         return "redirect:/basic/products";
     }
+
+//    @GetMapping("/{productId}/delete")
+//    public String d1(@ModelAttribute Product product){
+//        productRepository.delete(product.getId());
+//        return "redirect:/basic/products";
+//    }
+////    <- 이거는 왜 안됨? // 왜 객체가 null이지
+
 
     @PostConstruct // 생성이후에 실행
     public void initProducts() {
