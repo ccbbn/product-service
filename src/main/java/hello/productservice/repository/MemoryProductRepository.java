@@ -40,6 +40,10 @@ public class MemoryProductRepository implements ProductRepository {
         product.setName(updataProduct.getName());
         product.setPrice(updataProduct.getPrice());
         product.setStock(updataProduct.getStock());
+        product.setOpen(updataProduct.getOpen());
+        product.setRegions(updataProduct.getRegions());
+        product.setItemType(updataProduct.getItemType());
+        product.setDeliveryCode(updataProduct.getDeliveryCode());
 
     }
 
@@ -48,4 +52,5 @@ public class MemoryProductRepository implements ProductRepository {
     }
 
 
+    public void clearStore(){ store.clear();}
 }

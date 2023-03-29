@@ -13,6 +13,10 @@ public interface ProductRepository {
     void update(Long productId, Product updateProduct);
     void delete(Long productId);
 
+    void clearStore();
+
+
+
 
 
 }
