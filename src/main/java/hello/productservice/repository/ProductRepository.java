@@ -1,45 +1,18 @@
 package hello.productservice.repository;
 
-
 import hello.productservice.domain.Product;
-import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-@Repository
-public class ProductRepository {
-    public static final Map<Long, Product> store = new HashMap<>();
+public interface ProductRepository {
+    Product save(Product product);
+    Product findById(Long id);
+    Product findByName(String name);
+    List<Product> findAll();
 
-    private static long sequence = 0L;
+    void update(Long productId, Product updateProduct);
+    void delete(Long productId);
 
-    public Product save(Product product) {
-        product.setId(++sequence);
-        store.put(product.getId(), product);
-        return product;
-    }
-
-    public Product findById(Long id) {
-        return store.get(id);
-    }
-
-    public List<Product> findAll() {
-        return new ArrayList<>(store.values());
-    }
-
-    public void update(Long productId, Product updataProduct) {
-        Product product = findById(productId);
-        product.setName(updataProduct.getName());
-        product.setPrice(updataProduct.getPrice());
-        product.setStock(updataProduct.getStock());
-
-    }
-
-    public void delete(Long id){
-        store.remove(id);
-    }
 
 
 }
