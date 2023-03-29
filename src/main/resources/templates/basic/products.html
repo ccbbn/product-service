@@ -35,8 +35,7 @@
 <!--      each : 반복분 -->
       <tr th:each="product : ${products}">
         <td><a href="product.html" th:href="@{/basic/products/{productId}(productId=${product.id})}" th:text="${product.id}">회원id</a></td>
-        <td><a href="product.html" th:href="@{|/basic/products/${product.id}|}"
-               th:text="${product.name}">상품명</a></td>
+        <td><a href="product.html" th:href="@{|/basic/products/${product.id}|}" th:text="${product.name}">상품명</a></td>
         <td th:text="${product.price}">10000</td>
         <td th:text="${product.stock}">10</td>
       </tr>
