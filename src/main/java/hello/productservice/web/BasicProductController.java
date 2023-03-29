@@ -53,7 +53,7 @@ public class BasicProductController {
 
     }
 
-    @GetMapping("/add") //주소의 입력으로 리턴 파일로 감// 화면틀이 완성됨
+    @GetMapping("add") //주소의 입력으로 리턴 파일로 감// 화면틀이 완성됨
     public String addForm(Model model){
         model.addAttribute("product", new Product());
         return "basic/addForm"; //-
@@ -75,23 +75,27 @@ public class BasicProductController {
 //    }
 
 
-//    @PostMapping ("/add") //객체를 만듬, 저장함
-//    public String addProductV3(@ModelAttribute Product product /*Model model 안만들어도 됨*/) {
-//        productService.save(product);  // 키는 스프링이 타입명에서 자동으로 바꿈. 키 : product
-//        /*model.addAttribute("product", product); 굳이 필요 없음 */
-//        return "/basic/product";
-//}
-
+    @PostMapping ("add") //객체를 만듬, 저장함
+    public String addProductV3(@ModelAttribute Product product /*Model model 안만들어도 됨*/) {
+        productService.save(product);  // 키는 스프링이 타입명에서 자동으로 바꿈. 키 : product
+        /*model.addAttribute("product", product); 굳이 필요 없음 */
+        return "/basic/product";  //템플릿으로 감
+}
+//    redirect : 주소로 바로 꽂음
 //    @PostMapping ("add") //객체를 만듬 username=나&age=24234의 정보로 .
 //    public String addProductV3(@ModelAttribute Product product, RedirectAttributes redirectAttributes) {
-//        product = productRepository.save(product);
-//        redirectAttributes.addAttribute("productId",product.getId());
+//        Product savedProduct = productService.save(product);
+//        redirectAttributes.addAttribute("productId",savedProduct.getId());
 //        redirectAttributes.addAttribute("status", true);
-//        return "redirect:/basic/product/{productId}";
+//        return "redirect:/basic/products/{productId}";
 //    }
 
 
-// 수정할 때는 put사용
+
+
+
+
+    // 수정할 때는 put사용
     @GetMapping("/{productId}/edit") //product 에서 요청
     public String edit(@PathVariable Long productId, Model model){
         Product product = productService.findById(productId);
@@ -156,19 +160,19 @@ public class BasicProductController {
         return "basic/products"; //-
     }
 
-    @PostMapping("/add")
-    public String addItem(@ModelAttribute Product product, RedirectAttributes redirectAttributes) {
-
-        log.info("item.open={}", product.getOpen());
-        log.info("item.regions={}", product.getRegions());
-        log.info("item.itemType={}", product.getItemType());
-
-        Product savedItem = productService.save(product);
-        redirectAttributes.addAttribute("itemId", savedItem.getId());
-        redirectAttributes.addAttribute("status", true);
-        return "redirect:/basic/products/{productId}"; //-
-    }
-
+//    @PostMapping("add")
+//    public String addItem(@ModelAttribute Product product, RedirectAttributes redirectAttributes) {
+//
+//        log.info("item.open={}", product.getOpen());
+//        log.info("item.regions={}", product.getRegions());
+//        log.info("item.itemType={}", product.getItemType());
+//
+//        Product savedProduct = productService.save(product);
+//        redirectAttributes.addAttribute("productId", savedProduct.getId());
+//        redirectAttributes.addAttribute("status", true);
+//        return "redirect:/basic/products/{productId}"; //-
+//    }
+//
 
 
 
