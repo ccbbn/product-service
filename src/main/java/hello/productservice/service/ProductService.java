@@ -5,6 +5,7 @@ import hello.productservice.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -19,9 +20,9 @@ public class ProductService {
         return productRepository.save(product);
     };
     public Product findById(Long id) {
-        return productRepository.findById(id);
+        return productRepository.findById(id).get();
     };
-    public Product findByName(String name){return productRepository.findByName(name);
+    public Product findByName(String name){return productRepository.findByName(name).get();
     };
     public List<Product> findAll() {
         return productRepository.findAll();

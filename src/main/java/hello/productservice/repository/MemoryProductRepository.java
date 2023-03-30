@@ -2,14 +2,10 @@ package hello.productservice.repository;
 
 
 import hello.productservice.domain.Product;
-import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-@Repository
+
 public class MemoryProductRepository implements ProductRepository {
     public static final Map<Long, Product> store = new HashMap<>();
 
@@ -21,29 +17,29 @@ public class MemoryProductRepository implements ProductRepository {
         return product;
     }
 
-    public Product findById(Long id) {
-        return store.get(id);
+    public Optional<Product> findById(Long id) {
+        return Optional.ofNullable(store.get(id));
     }
 
     @Override
-    public Product findByName(String name) {
-        return store.values().stream().filter(product -> product.getName().equals(name))
-                .findAny().get();
+    public Optional<Product> findByName(String name) {
+        return Optional.of(store.values().stream().filter(product -> product.getName().equals(name))
+                .findAny().get());
     }
 
     public List<Product> findAll() {
         return new ArrayList<>(store.values());
     }
 
-    public void update(Long productId, Product updataProduct) {
-        Product product = findById(productId);
-        product.setName(updataProduct.getName());
-        product.setPrice(updataProduct.getPrice());
-        product.setStock(updataProduct.getStock());
-        product.setOpen(updataProduct.getOpen());
-        product.setRegions(updataProduct.getRegions());
-        product.setItemType(updataProduct.getItemType());
-        product.setDeliveryCode(updataProduct.getDeliveryCode());
+    public void update(Long productId, Product updateProduct) {
+        Optional<Product> product = findById(productId);
+        product.ifPresent(p -> p.setName(updateProduct.getName()));
+        product.ifPresent(p -> p.setPrice(updateProduct.getPrice()));
+        product.ifPresent(p -> p.setStock(updateProduct.getStock()));
+        product.ifPresent(p -> p.setOpen(updateProduct.getOpen()));
+        product.ifPresent(p -> p.setRegions(updateProduct.getRegions()));
+        product.ifPresent(p -> p.setItemType(updateProduct.getItemType()));
+        product.ifPresent(p -> p.setDeliveryCode(updateProduct.getDeliveryCode()));
 
     }
 
