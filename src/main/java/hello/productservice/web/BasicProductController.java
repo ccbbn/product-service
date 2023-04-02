@@ -154,7 +154,6 @@ public class BasicProductController {
 
     @GetMapping
     public String products(Model model) {
-
         List<Product> products = productService.findAll();
         model.addAttribute("products", products);
         return "basic/products"; //-
