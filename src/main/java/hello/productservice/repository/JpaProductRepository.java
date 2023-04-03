@@ -20,7 +20,8 @@ public class JpaProductRepository implements ProductRepository{
     @Override
     public Product save(Product product) {
         em.persist(product);
-        return null;
+        return product;
+
     }
 
     @Override
@@ -37,15 +38,18 @@ public class JpaProductRepository implements ProductRepository{
     }
 
     @Override
-    public List<Product> findAll() {
+    public List<Product> findAll() {  //jpql
        return em.createQuery("select p from Product p",Product.class).
                 getResultList();
     }
 
     @Override
     public void update(Long productId, Product updateProduct) {
-        updateProduct.setId(productId);
-        em.merge(updateProduct);
+        Product product = findById(productId).get();
+        product.setName(updateProduct.getName());
+        product.setPrice(updateProduct.getPrice());
+        product.setStock(updateProduct.getStock());
+        // 사실 쿼리도 같이 만들어지고 있음
 
     }
 
