@@ -19,7 +19,7 @@ public class Member {
 //    @Column(name = "TEAM_ID")
 //   private Long teamId;
 
-    @ManyToOne  // 멤버기준 다대일이라서
+    @ManyToOne  // 멤버기준 다대일이라서 조인이 필요
     @JoinColumn(name = "TEAM_ID")  //외래키
     private Team team;
 
